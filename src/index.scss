@@ -1,0 +1,20 @@
+@import "variables.scss";
+@import "mixin.scss"; 
+
+
+body{
+    color: rgba($color: $color_primary, $alpha: 0.4);
+    background-color: $color_standar;
+
+    header{
+        background-color: $color_primary;
+        height: 10%;
+    }
+    section{
+        height: 80%;
+    }
+    footer{
+        height: 5%;
+        background-color: $color_secondary;
+    }
+}
