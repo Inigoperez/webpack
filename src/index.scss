@@ -1,10 +1,13 @@
 @import "variables.scss";
 @import "mixin.scss"; 
 
+@include body($color_primary,$color_secondary);
 
 body{
     color: rgba($color: $color_primary, $alpha: 0.4);
     background-color: $color_standar;
+
+    #mapid { height:100% }
 
     header{
         background-color: $color_primary;

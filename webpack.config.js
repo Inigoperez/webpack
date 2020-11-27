@@ -4,13 +4,28 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const { includes } = require('lodash');
 
 const indextInput = './src/index.html';
-const indexOutput = 'index.bundle.html';
+const indexOutput = 'index.html';
 
 module.exports = {
-
-    entry: ["./src/index.js","./src/index.js"], //relative to root of the application
-    output: {
-        filename: "./index.bundle.js" //relative to root of the application
+    module:{
+        rules:[{
+            test: /\.s[ac]ss$/i, 
+            use: [
+                "style-loader",
+                "css-loader",
+                {
+                    loader:'sass-loader',
+                    options:{
+                        sourceMap:true,
+                        sassOptions:{
+                            outputStyle:"compressed",
+                        }
+                    }
+                }
+            ],
+            include:[path.resolve(__dirname, 'src/')],
+        }
+    ]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -18,29 +33,9 @@ module.exports = {
             template: indextInput,
         }),
         new MiniCSSExtractPlugin({
-            filename: "index.bundle.css"
+            filename: "index.css"
         })
     ],
-    module:{
-        rules:[{
-            test: /\.scss$/, 
-            use: [
-                MiniCSSExtractPlugin.loader,
-                "css-loader",   
-                "sass-loader",
-                {
-                    loader:'sass-loader',
-                    options:{
-                        sourceMap:true,
-                        sassOption:{
-                            outputStyle:"compressed"
-                        }
-                    }
-                }
-            ],
-            include:[path.resolve(__dirname, 'src/')],
-        }]
-    },
     mode:"development",
     externals:{
         lodash:"_",
@@ -51,5 +46,10 @@ module.exports = {
         filename:"index.html",
         compress: true,
         port: 9000
-    }
+    },
+    entry: ["./src/index.js","./src/index.scss"], //relative to root of the application
+    output: {
+        filename: "./index.js", //relative to root of the application
+        path: path.join(__dirname, 'dist'),
+    },
 };

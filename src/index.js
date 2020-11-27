@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import L from 'leaflet';
-
+import './index.scss';
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
